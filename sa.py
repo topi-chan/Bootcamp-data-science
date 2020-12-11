@@ -40,14 +40,15 @@ class SqlAlchemyWrite():
 
 # db1 = SqlAlchemyCreate('sqlite:///bookstore.db', "Biblioteczka")
 #
-# db1.sql_create_3col("tytuł", "data zakupu", String, String)
+# db1.sql_create_3col("tytuł", "data_zakupu", String, String)
 
-db2 = SqlAlchemyWrite('sqlite:///bookstore.db', """INSERT INTO Biblioteczka(id, tytuł, data zakupu)
- VALUES(:id, :tytuł, :data zakupu)""")
+db2 = SqlAlchemyWrite('sqlite:///bookstore.db', """INSERT INTO
+Biblioteczka(id, tytuł, data_zakupu) VALUES(:id, :tytuł, :data_zakupu)""")
 
-data = ({ "id": 1, "tytuł": "The Hobbit", "data zakupu": "2020-12-01" },
-        { "id": 2, "tytuł": "The Silmarillion", "data zakupu": "2020-11-30" },
-        { "id": 3, "tytuł": "Wilk Stepowy", "data zakupu": "2020-11-11" })
+data = ({ "id": 1, "tytuł": "The Hobbit", "data_zakupu": "2020-12-01" },
+        { "id": 2, "tytuł": "The Silmarillion", "data_zakupu": "2020-11-30" },
+        { "id": 3, "tytuł": "Wilk Stepowy", "data_zakupu": "2020-11-11" }
+        )
 db2.sql_write(data)
 
 

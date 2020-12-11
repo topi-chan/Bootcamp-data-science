@@ -22,6 +22,19 @@ class SqlAlchemyCreate():
         engine = create_engine(self.engine)
         metadata.create_all(engine)
 
+    def sql_create_6col(self, column1, type1, column2, type2, column3, type3,
+    column4, type4, column5, type5, column6, type6):
+        metadata = MetaData()
+        books = Table(self.table_name, metadata,
+          Column(column1, type1),
+          Column(column2, type2),
+          Column(column3, type3),
+          Column(column4, type4),
+          Column(column5, type5),
+          Column(column6, type6),
+        )
+        engine = create_engine(self.engine)
+        metadata.create_all(engine)
 
 class SqlAlchemyWrite():
     """Allows to pass a command into a database;

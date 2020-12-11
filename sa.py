@@ -6,7 +6,7 @@ from sqlalchemy.sql import text
 
 
 class SqlAlchemyCreate():
-    """Allows to write a simple table; put database type in 'engine'"""
+    """Allows to write a simple table; put database type/name in 'engine'"""
 
     def __init__(self, engine, table_name):
         self.engine = engine
@@ -15,7 +15,7 @@ class SqlAlchemyCreate():
     def sql_create_3col(self, column1, column2, type1, type2):
         metadata = MetaData()
         books = Table(self.table_name, metadata,
-          Column('id', Integer, primary_key=True),
+          Column('id', Integer),
           Column(column1, type1),
           Column(column2, type2),
         )
@@ -24,6 +24,8 @@ class SqlAlchemyCreate():
 
 
 class SqlAlchemyWrite():
+    """Allows to pass a command into a database;
+    put database type/name in 'engine'"""
 
     def __init__(self, engine, command):
         self.engine = engine
@@ -36,60 +38,14 @@ class SqlAlchemyWrite():
             for line in data:
                 con.execute(statement, **line)
 
+    def sql_any(self):
+        engine = create_engine(self.engine)
+        with engine.connect() as con:
+            rs = con.execute(self.command)
 
-
-# db1 = SqlAlchemyCreate('sqlite:///bookstore.db', "Biblioteczka")
-#
-# db1.sql_create_3col("tytuł", "data_zakupu", String, String)
-
-db2 = SqlAlchemyWrite('sqlite:///bookstore.db', """INSERT INTO
-Biblioteczka(id, tytuł, data_zakupu) VALUES(:id, :tytuł, :data_zakupu)""")
-
-data = ({ "id": 1, "tytuł": "The Hobbit", "data_zakupu": "2020-12-01" },
-        { "id": 2, "tytuł": "The Silmarillion", "data_zakupu": "2020-11-30" },
-        { "id": 3, "tytuł": "Wilk Stepowy", "data_zakupu": "2020-11-11" }
-        )
-db2.sql_write(data)
-
-
-
-
-
-
-
-#command = """INSERT INTO book(id, title, primary_author) VALUES(:id, :title, :primary_author)"""
-
-# class SqlAlchemyWrite():
-#     """Writes into already created table"""
-#
-#     def __init__(self, arg):
-#         self.arg = arg
-
-
-
-
-#db1.sql_inspect_3col("Biblioteczka", "tytuł", "data zakupu")
-
-    # def sql_inspect_3col(self, table_name, column1, column2):
-    #     inspector = inspect(engine)
-    #     inspector.get_columns(table_name)
-    #     Out[*]:
-    #     [{'autoincrement': True,
-    #       'default': None,
-    #       'name': u'id',
-    #       'nullable': False,
-    #       'primary_key': 1,
-    #       'type': INTEGER()},
-    #      {'autoincrement': True,
-    #       'default': None,
-    #       'name': u column1,
-    #       'nullable': True,
-    #       'primary_key': 0,
-    #       'type': VARCHAR()},
-    #      {'autoincrement': True,
-    #       'default': None,
-    #       'name': u column2,
-    #       'nullable': True,
-    #       'primary_key': 0,
-    #       'type': VARCHAR()}]
-    #
+    def sql_any_print(self):
+        engine = create_engine(self.engine)
+        with engine.connect() as con:
+            rs = con.execute(self.command)
+            for row in rs:
+                print(row)

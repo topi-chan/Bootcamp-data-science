@@ -55,6 +55,7 @@ db2.sql_write(data)
 
 
 
+
 #command = """INSERT INTO book(id, title, primary_author) VALUES(:id, :title, :primary_author)"""
 
 # class SqlAlchemyWrite():

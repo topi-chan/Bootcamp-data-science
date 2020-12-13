@@ -3,6 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
 from sqlalchemy import inspect
 from sqlalchemy.sql import text
+from sqlalchemy import delete
 
 
 class SqlAlchemyCreate():
@@ -18,6 +19,19 @@ class SqlAlchemyCreate():
           Column('id', Integer),
           Column(column1, type1),
           Column(column2, type2),
+        )
+        engine = create_engine(self.engine)
+        metadata.create_all(engine)
+
+    def sql_create_5col_cstr(self, column1, type1, column2, type2,
+    column3, type3, column4, type4, column5, type5):
+        metadata = MetaData()
+        books = Table(self.table_name, metadata,
+          Column(column1, type1, primary_key=True),
+          Column(column2, type2, unique=True),
+          Column(column3, type3, nullable=False),
+          Column(column4, type4, default=0),
+          Column(column5, type5, nullable=False),
         )
         engine = create_engine(self.engine)
         metadata.create_all(engine)
@@ -62,3 +76,11 @@ class SqlAlchemyWrite():
             rs = con.execute(self.command)
             for row in rs:
                 print(row)
+
+# 
+#
+# def sql_delete(col_id):
+#     engine = create_engine('sqlite:///Lista Prezentów.db')
+#     with engine.connect() as con:
+#         table = 'Prezenty_2020'
+#         table.delete().where(table.c.name==col_id)

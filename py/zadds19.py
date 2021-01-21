@@ -13,7 +13,6 @@ class Figura():
         self.wynik_pole = 0
         self.wynik_obwod = 0
 
-
     def calculate_geometry(self):
         self.wynik_pole = self.wartosc1 * self.wartosc2
         self.wynik_obwod = self.wartosc1 + self.wartosc2 + self.wartosc3
@@ -37,11 +36,14 @@ class Trojkat(Figura):
     def calculate_circuit(self):
         return self.wynik_obwod
 
-obj = Prostokat(19,12,2)
-obj.calculate_geometry()
-print(obj.calculate_rectangle())
-print(obj.calculate_circuit())
-obj2 = Trojkat(19,12,2)
-obj2.calculate_geometry()
-print(obj2.calculate_triangle())
-print(obj2.calculate_circuit())
+# objj = Figura(23,23,12)
+figurka = Prostokat(23,23,12)
+print(figurka.calculate_circuit())
+# obj = Prostokat(19,12,2)
+# obj.calculate_geometry()
+# print(obj.calculate_rectangle())
+# print(obj.calculate_circuit())
+# obj2 = Trojkat(19,12,2)
+# obj2.calculate_geometry()
+# print(obj2.calculate_triangle())
+# print(obj2.calculate_circuit())

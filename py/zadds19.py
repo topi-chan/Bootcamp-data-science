@@ -20,12 +20,19 @@ class Figura():
 class Prostokat(Figura):
     """dziedziczy wynik z Figury"""
 
+    def __init__(self, *args, **kwargs):
+        if 'obj' in kwargs:
+            self.__dict__.update(kwargs['obj'].__dict__)
+        else:
+            super().__init__(*args, **kwargs)
+
+
     def calculate_rectangle(self):
         return self.wynik_pole
 
     def calculate_circuit(self):
         return (self.wartosc1*2 + self.wartosc2*2)
-
+        
 
 class Trojkat(Figura):
     """dziedziczy wynik z Figury, dzieli przez 2 bo to trójkąt ;)"""
@@ -36,8 +43,9 @@ class Trojkat(Figura):
     def calculate_circuit(self):
         return self.wynik_obwod
 
-# objj = Figura(23,23,12)
-figurka = Prostokat(23,23,12)
+objj = Figura(23,23,12)
+objj.calculate_geometry()
+figurka = Prostokat(obj = objj)
 print(figurka.calculate_circuit())
 # obj = Prostokat(19,12,2)
 # obj.calculate_geometry()

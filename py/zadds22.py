@@ -26,6 +26,7 @@ class Zwierze(Animal):
     def powitanie(self):
         print(self.dzwiek, self.imie, type(self))
 
-atanazy = Zwierze("Tazik")
-atanazy.daj_glos("miauu")
-atanazy.powitanie()
+if __name__ == '__main__':
+    atanazy = Zwierze("Tazik")
+    atanazy.daj_glos("miauu")
+    atanazy.powitanie()

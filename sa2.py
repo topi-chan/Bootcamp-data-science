@@ -1,9 +1,7 @@
 import sqlalchemy
-from sqlalchemy import create_engine
-from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
-from sqlalchemy import inspect
+from sqlalchemy import Table, Column, Integer, String, create_engine
+from sqlalchemy import MetaData, ForeignKey, inspect, delete
 from sqlalchemy.sql import text
-from sqlalchemy import delete
 
 
 class SqlAlchemyCreate():
@@ -12,6 +10,12 @@ class SqlAlchemyCreate():
     def __init__(self, engine, table_name):
         self.engine = engine
         self.table_name = table_name
+
+    def sql_create_test(self):
+        metadata = MetaData()
+        users = Table(self.table_name, metadata, Column('id', Integer))
+        engine = create_engine(self.engine)
+        metadata.create_all(engine)
 
     def sql_create_3col(self, column1, column2, type1, type2):
         metadata = MetaData()
@@ -30,8 +34,21 @@ class SqlAlchemyCreate():
           Column(column1, type1, primary_key=True),
           Column(column2, type2, nullable=False),
           Column(column3, type3, unique=True),
-          Column(column4, type4, nullable=False),
-          Column(column5, type5, nullable=False),
+          Column(column4, type4, nullable=True),
+          Column(column5, type5, nullable=True),
+        )
+        engine = create_engine(self.engine)
+        metadata.create_all(engine)
+
+    def sql_create_5col_cstr_2(self, column1, type1, column2, type2,
+    column3, type3, column4, type4, column5, type5):
+        metadata = MetaData()
+        books = Table(self.table_name, metadata,
+          Column(column1, type1, primary_key=True),
+          Column(column2, type2, nullable=True),
+          Column(column3, type3, nullable=True),
+          Column(column4, type4, nullable=True),
+          Column(column5, type5, nullable=True),
         )
         engine = create_engine(self.engine)
         metadata.create_all(engine)

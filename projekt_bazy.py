@@ -1,4 +1,4 @@
-from sa2 import *
+from sa3 import *
 
 db1 = SqlAlchemyCreate('sqlite:///Sklep odzieżowy.db', "Dostawca")
 db1.sql_create_5col_cstr("id_producenta", Integer, "nazwa_producenta",
@@ -174,3 +174,11 @@ data = ({"id_klienta": 1, "id_zamówienia": 10, "imię": "Maciej",
          {"id_klienta": 10, "id_zamówienia": 1, "imię": "Eliza",
          "nazwisko": "Malicka", "adres": "Ul. Krucza 12 Zwardoń"})
 db8.sql_write(data)
+
+db9 = SqlAlchemyWrite('sqlite:///Sklep odzieżowy.db', """ALTER TABLE Produkt
+ADD FOREIGN KEY (dostawca_id) REFERENCES Dostawca(dostawca_id)""")
+db9.sql_any()
+
+#
+# ALTER TABLE Orders
+# ADD FOREIGN KEY (PersonID) REFERENCES Persons(PersonID);
